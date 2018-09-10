@@ -6,7 +6,16 @@ RSpec.describe Oystercard do
     expect(subject.balance).to eq 0
   end 
 
-  it "should top up" do
-    expect{subject.topup(1)}.to change{subject.balance}.from(0).to(1)
-  end 
+  describe 'top up' do
+
+    it "should top up" do
+      expect{subject.top_up(1)}.to change{subject.balance}.from(0).to(1)
+    end 
+
+    it 'should raise an error when maximum balance exceeded during topup' do
+      expect { subject.top_up(100) }.to raise_error("Maximum balance of $#{Oystercard::MAXIMUM_BALANCE} exceeded")
+    end
+
+  end
+
 end
